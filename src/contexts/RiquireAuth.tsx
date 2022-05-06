@@ -1,9 +1,9 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Navigate } from "react-router-dom";
-import { AuthContext } from "./AuthContext";
+import { useAuth } from "../hooks/useAuth";
 
 export function RiquireAtuth({ children }: { children: JSX.Element }) {
-  const auth = useContext(AuthContext);
+  const { signed } = useAuth();
 
-  return auth.signed ? children : <Navigate to="/" />;
+  return signed ? children : <Navigate to="/login" />;
 }

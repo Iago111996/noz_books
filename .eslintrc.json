@@ -31,6 +31,8 @@
     "comma-dangle": "off",
     "react/jsx-wrap-multilines": "off",
     "object-curly-newline": "off",
+    "arrow-body-style": "off",
+    "react/require-default-props": "off",
     "react/jsx-filename-extension": [
       "error",
       {

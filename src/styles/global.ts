@@ -3,12 +3,12 @@ import { createGlobalStyle } from "styled-components";
 export const GlobalStyle = createGlobalStyle`
   :root {
     --background: #E0E6EE;;
+    --background-alert: #75A8F5;
+    --background-secondary: rgba(0, 0, 0, 0.32);
+    --background-spin: rgba(211, 209, 209, 0.38);
     --shape: #FFFFFF;
     --danger: #B22E6F; 
 
-    --background-secondary: rgba(0, 0, 0, 0.32);;
-
-    --background-alert: #75A8F5;
 
     --title: #333333;
     --subtitle: #2E63F7;

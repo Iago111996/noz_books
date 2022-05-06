@@ -1,47 +1,71 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import { Alert } from "../../components/Alert";
 import { Input } from "../../components/Input";
-import { AuthContext } from "../../contexts/AuthContext";
+
+import { useAuth } from "../../hooks/useAuth";
+
+import { ErrorIterface } from "../../interfaces/errorIterface";
 
 import { Container, Content, Header, WrapperInput } from "./styles";
 
 export function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
 
-  const auth = useContext(AuthContext);
+  const [errors, setErrors] = useState({
+    hasError: false,
+    error: "",
+  } as ErrorIterface);
+
+  const { signin } = useAuth();
   const navigate = useNavigate();
+
+  function changeValues() {
+    const handler = setTimeout(() => {
+      setErrors({ hasError: false, error: "" });
+    }, 3000);
+    return () => {
+      clearTimeout(handler);
+    };
+  }
 
   async function handleLogin() {
     try {
       if (email === "") {
-        alert("O email é obrigatório!");
+        setErrors({ hasError: true, error: "O email é obrigatório!" });
+        changeValues();
         return;
       }
 
       if (password === "") {
-        alert("A senha é obrigatório!");
+        setErrors({ hasError: true, error: "A senha é obrigatória!" });
+        changeValues();
         return;
       }
 
-      setLoading(true);
-
-      const isLogged = await auth.signin(email, password);
+      const isLogged = await signin(email, password);
 
       if (isLogged) {
-        setLoading(false);
         navigate("/home");
       } else {
-        setLoading(false);
-        alert("Algo deu errado!");
+        setErrors({ hasError: true, error: "Algo deu errado!" });
+        changeValues();
       }
     } catch (error: any) {
-      alert(error);
-      setLoading(false);
+      if ([401].some((x) => x === error.response.status)) {
+        setErrors({ hasError: true, error: "Email e/ou senha incorretos." });
+        changeValues();
+      }
+
+      if ([500].some((x) => x === error.response.status)) {
+        setErrors({ hasError: true, error: "Infelizmente, algo deu errado." });
+        changeValues();
+      }
     }
   }
+
   return (
     <Container>
       <Content>
@@ -70,7 +94,7 @@ export function Login() {
           />
         </WrapperInput>
 
-        <Alert />
+        <Alert title={errors.error} isShow={errors.hasError} />
       </Content>
     </Container>
   );

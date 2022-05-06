@@ -2,12 +2,17 @@ import React from "react";
 
 import { Container } from "./styles";
 
-export function Alert() {
+interface AlertProps {
+  title: string;
+  isShow: boolean;
+}
+
+export function Alert({ title, isShow }: AlertProps) {
   return (
-    <Container>
+    <Container isShow={isShow}>
       <div />
 
-      <h1>Email e/ou senha incorretos.</h1>
+      <h1>{title}</h1>
     </Container>
   );
 }

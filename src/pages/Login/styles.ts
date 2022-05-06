@@ -46,9 +46,9 @@ export const Header = styled.header`
 
     font-style: normal;
     font-weight: 300;
-    font-size: 28px;
+    font-size: 1.75rem;
 
-    line-height: 40px;
+    line-height: 2.5rem;
 
     margin-left: 0.5rem;
   }

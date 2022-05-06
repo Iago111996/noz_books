@@ -19,4 +19,12 @@ export const Container = styled.button`
   font-size: 16px;
 
   line-height: 20px;
+
+  &:hover {
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
 `;

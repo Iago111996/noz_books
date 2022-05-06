@@ -1,11 +1,16 @@
-import React, { ReactNode, useMemo } from "react";
+/* eslint-disable react/jsx-no-constructed-context-values */
+/* eslint-disable dot-notation */
+import React, { ReactNode, useLayoutEffect, useMemo, useState } from "react";
+
+import { useNavigate } from "react-router-dom";
 
 import { AuthContext } from "./AuthContext";
 
-import { useApi } from "../hooks/useApi";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 
 import api from "../services/api";
+import { ErrorIterface } from "../interfaces/errorIterface";
+import { User } from "../interfaces/userInterface";
 
 interface AuthProviderType {
   children: ReactNode;
@@ -13,60 +18,88 @@ interface AuthProviderType {
 
 export function AuthProvider({ children }: AuthProviderType) {
   const [user, setUser] = useLocalStorage("user", null);
+  const [token, setToken] = useLocalStorage("authToken", null);
+
+  const navigate = useNavigate();
 
   async function signin(email: string, password: string) {
-    const response = await api.post("auth/sign-in", {
+    const response = await api.post("/auth/sign-in", {
       email,
       password,
     });
 
-    console.log(response, "oi");
-
     if (response.data) {
+      api.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${response.headers.authorization}`;
+      api.defaults.headers.common["Content-Type"] = "application/json";
       setUser(response.data);
+      setToken(response.headers.authorization);
 
       return true;
     }
-
     return false;
   }
 
-  async function signout() {
+  function signout() {
     setUser(null);
-    // setValuesLocal("", "", "", "");
+    setToken(null);
+    api.defaults.headers.common["Authorization"] = `Bearer ${null}`;
+    navigate("/login");
   }
 
-  // const setValuesLocal = (
-  //   token: string,
-  //   expiration: string,
-  //   userName: string,
-  //   userEmail: string
-  // ) => {
-  //   setName(userName);
-  //   setEmail(userEmail);
-  //   setToken(token);
-  //   setDate(expiration);
+  async function refreshToken() {
+    const x = await true;
+  }
 
-  //   api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-  //   api.defaults.headers.common["Content-Type"] = "application/json";
-  // };
+  function catchError(
+    error: any,
+    setErrors: (item: React.SetStateAction<ErrorIterface>) => void
+  ) {
+    const { status } = error.response;
 
-  const validateToken = async () => {};
+    function changeValues() {
+      const handler = setTimeout(() => {
+        setErrors({ hasError: false, error: "" });
+      }, 3000);
+      return () => {
+        clearTimeout(handler);
+      };
+    }
 
-  // useLayoutEffect(() => {
-  //   api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-  // }, []);
+    switch (status) {
+      case 500:
+        setErrors({ hasError: true, error: "Infelizmente, algo deu errado." });
+        changeValues();
+        return;
 
-  const obj = useMemo(
-    () => ({
-      signed: !!user,
-      user,
-      signin,
-      signout,
-      validateToken,
-    }),
-    []
+      case 401:
+        setErrors({ hasError: true, error: "Não autorizado." });
+        changeValues();
+        signout();
+        break;
+
+      default:
+        break;
+    }
+  }
+
+  useLayoutEffect(() => {
+    api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  }, []);
+
+  return (
+    <AuthContext.Provider
+      value={{
+        signed: !!user,
+        user,
+        signin,
+        signout,
+        catchError,
+        refreshToken,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
   );
-
-  return <AuthContext.Provider value={obj}>{children}</AuthContext.Provider>;
 }
