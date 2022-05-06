@@ -31,9 +31,9 @@ export const Container = styled.div`
 
       font-style: normal;
       font-weight: 500;
-      font-size: 28px;
+      font-size: 1.75rem;
 
-      line-height: 40px;
+      line-height: 2.5rem;
     }
 
     h3 {
@@ -41,9 +41,9 @@ export const Container = styled.div`
 
       font-style: normal;
       font-weight: 500;
-      font-size: 12px;
+      font-size: .75rem;
 
-      line-height: 30px;
+      line-height: 1.9rem;
     }
 
     h4 {
@@ -51,9 +51,9 @@ export const Container = styled.div`
 
       font-style: normal;
       font-weight: 400;
-      font-size: 12px;
+      font-size: .75rem;
 
-      line-height: 20px;
+      line-height: 1.25rem;
     }
 
     span {
@@ -61,9 +61,9 @@ export const Container = styled.div`
 
       font-style: normal;
       font-weight: 400;
-      font-size: 12px;
+      font-size: .75rem;
 
-      line-height: 20px;
+      line-height: 1.25rem;
     }
 
     p {
@@ -71,9 +71,9 @@ export const Container = styled.div`
 
       font-style: normal;
       font-weight: 400;
-      font-size: 12px;
+      font-size: .75rem;
 
-      line-height: 20px;
+      line-height: 1.25rem;
 
       padding-bottom: 3rem;
     }
@@ -104,9 +104,9 @@ export const Title = styled.h2`
   color: var(--title);
   font-style: normal;
   font-weight: 500;
-  font-size: 12px;
+  font-size: .75rem;
 
-  line-height: 28px;
+  line-height: 1.75rem;
 
   text-transform: uppercase;
 

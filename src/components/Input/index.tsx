@@ -1,5 +1,4 @@
-/* eslint-disable react/require-default-props */
-import React from "react";
+import React, { SetStateAction } from "react";
 import { Button } from "../Button";
 
 import { Container } from "./styles";
@@ -9,7 +8,7 @@ interface InputProps {
   type: string;
   placeholder: string;
   value: string;
-  onChange: (value: React.SetStateAction<string>) => void;
+  onChange: (value: SetStateAction<string>) => void;
   onClick?: () => void;
 }
 

@@ -1,6 +1,9 @@
-/* eslint-disable react/jsx-no-constructed-context-values */
 /* eslint-disable dot-notation */
-import React, { ReactNode, useLayoutEffect, useMemo, useState } from "react";
+/* eslint-disable react/jsx-no-constructed-context-values */
+import React, {
+  ReactNode,
+  useLayoutEffect,
+} from "react";
 
 import { useNavigate } from "react-router-dom";
 
@@ -52,30 +55,14 @@ export function AuthProvider({ children }: AuthProviderType) {
     const x = await true;
   }
 
-  function catchError(
-    error: any,
-    setErrors: (item: React.SetStateAction<ErrorIterface>) => void
-  ) {
+  function catchError(error: any) {
     const { status } = error.response;
-
-    function changeValues() {
-      const handler = setTimeout(() => {
-        setErrors({ hasError: false, error: "" });
-      }, 3000);
-      return () => {
-        clearTimeout(handler);
-      };
-    }
 
     switch (status) {
       case 500:
-        setErrors({ hasError: true, error: "Infelizmente, algo deu errado." });
-        changeValues();
         return;
 
       case 401:
-        setErrors({ hasError: true, error: "Não autorizado." });
-        changeValues();
         signout();
         break;
 

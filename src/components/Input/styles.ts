@@ -28,9 +28,9 @@ export const Container = styled.div`
 
     font-style: normal;
     font-weight: 400;
-    font-size: 12px;
+    font-size: .75rem;
 
-    line-height: 16px;
+    line-height: 1rem;
 
     opacity: 0.5;
 
@@ -50,9 +50,9 @@ export const Container = styled.div`
 
     font-style: normal;
     font-weight: 400;
-    font-size: 16px;
+    font-size: 1rem;
 
-    line-height: 24px;
+    line-height: 1.5rem;
 
     &::placeholder {
       color: var(--shape);

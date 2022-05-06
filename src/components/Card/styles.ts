@@ -6,7 +6,7 @@ export const Container = styled.button`
 
   background-color: var(--shape);
 
-  box-shadow: 0px 6px 24px rgba(84, 16, 95, 0.13);
+  box-shadow: 0px .4rem 1.5rem rgba(84, 16, 95, 0.13);
 
   border: none;
   border-radius: 4px;
@@ -43,7 +43,7 @@ export const Container = styled.button`
 
       font-style: normal;
       font-weight: 500;
-      font-size: 14px;
+      font-size: .9rem;
 
       line-height: 1rem;
     }
@@ -52,7 +52,7 @@ export const Container = styled.button`
       color: var(--subtitle);
       font-style: normal;
       font-weight: 400;
-      font-size: 12px;
+      font-size: .75rem;
 
       line-height: 1rem;
     }
@@ -64,7 +64,7 @@ export const Container = styled.button`
 
       font-style: normal;
       font-weight: 400;
-      font-size: 12px;
+      font-size: .75rem;
     }
   }
 

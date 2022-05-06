@@ -1,7 +1,4 @@
-import { useState } from "react";
 import useSWR from "swr";
-
-import { ErrorIterface } from "../interfaces/errorIterface";
 
 import api from "../services/api";
 import { useAuth } from "./useAuth";
@@ -10,11 +7,6 @@ export function useFetch<Data = any, Error = any>(url: string) {
   const { catchError } = useAuth();
 
   const isCAll = url.includes("undefined");
-
-  const [errors, setErrors] = useState({
-    hasError: false,
-    error: "",
-  } as ErrorIterface);
 
   const { data, error } = useSWR<Data, Error>(
     !isCAll ? url : null,
@@ -26,8 +18,8 @@ export function useFetch<Data = any, Error = any>(url: string) {
   );
 
   if (error) {
-    catchError(error, setErrors);
+    catchError(error);
   }
 
-  return { data, isLoading: !error && !data, errors };
+  return { data, isLoading: !error && !data };
 }

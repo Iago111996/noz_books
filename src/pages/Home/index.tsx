@@ -1,6 +1,4 @@
-/* eslint-disable react/no-array-index-key */
-/* eslint-disable operator-linebreak */
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { BookDetails } from "../../components/BookDetails";
 import { ButtonIcon } from "../../components/ButtonIcon";
 import { Card } from "../../components/Card";
@@ -12,7 +10,6 @@ import {
   BookInterface,
   ReasponseApiInterface,
 } from "../../interfaces/responseApiInterface";
-import api from "../../services/api";
 
 import {
   Container,
@@ -28,7 +25,7 @@ export function Home() {
   const [visibleModal, setVisibleModal] = useState(false);
   const [bookItem, setBookItem] = useState<BookInterface>({} as BookInterface);
 
-  const { data, isLoading } = useFetch<ReasponseApiInterface>(
+  const { data } = useFetch<ReasponseApiInterface>(
     `/books?page=${pageIndex}&amount=12&category=biographies`
   );
 

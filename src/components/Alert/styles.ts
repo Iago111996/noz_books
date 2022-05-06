@@ -36,8 +36,8 @@ export const Container = styled.article<Props>`
 
     font-style: normal;
     font-weight: 700;
-    font-size: 16px;
+    font-size: 1rem;
 
-    line-height: 16px;
+    line-height: 1rem;
   }
 `;
