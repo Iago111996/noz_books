@@ -5,5 +5,5 @@ import { useAuth } from "../hooks/useAuth";
 export function RiquireAtuth({ children }: { children: JSX.Element }) {
   const { signed } = useAuth();
 
-  return signed ? children : <Navigate to="/login" />;
+  return signed ? children : <Navigate to="/" />;
 }

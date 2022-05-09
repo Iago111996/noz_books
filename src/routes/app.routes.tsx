@@ -18,7 +18,7 @@ export function AppRoutes() {
           </RiquireAtuth>
         }
       />
-      <Route path="/login" element={<Login />} />
+      <Route path="/" element={<Login />} />
     </Routes>
   );
 }

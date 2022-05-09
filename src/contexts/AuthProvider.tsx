@@ -48,7 +48,7 @@ export function AuthProvider({ children }: AuthProviderType) {
     setUser(null);
     setToken(null);
     api.defaults.headers.common["Authorization"] = `Bearer ${null}`;
-    navigate("/login");
+    navigate("/");
   }
 
   async function refreshToken() {
